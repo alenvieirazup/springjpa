@@ -6,6 +6,10 @@ import br.com.zup.springdata.orm.UnidadeTrabalho;
 import br.com.zup.springdata.repository.CargoRepository;
 import br.com.zup.springdata.repository.FuncionarioRepository;
 import br.com.zup.springdata.repository.UnidadeTrabalhoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -48,7 +52,7 @@ public class CrudFuncionarioService {
             switch (acao){
                 case 1 -> salvar(scanner);
                 case 2 -> atualizar(scanner);
-                case 3 -> visualizar();
+                case 3 -> visualizar(scanner);
                 case 4 -> deletar(scanner);
                 default -> system = false;
             }
@@ -123,8 +127,13 @@ public class CrudFuncionarioService {
         System.out.println("Alterado");
     }
 
-    private void visualizar() {
-        Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+    private void visualizar(Scanner scanner) {
+        System.out.println("Qual pagina voce deseja visualizar");
+        Integer page = scanner.nextInt();
+        Pageable pageable = PageRequest.of(page , 5, Sort.by(Sort.Direction.ASC, "nome"));
+        Page<Funcionario> funcionarios = funcionarioRepository.findAll(pageable);
+        System.out.println("Pagina atual " + funcionarios.getNumber());
+        System.out.println("Total elemento " + funcionarios.getTotalElements());
         funcionarios.forEach(System.out::println);
     }
 
