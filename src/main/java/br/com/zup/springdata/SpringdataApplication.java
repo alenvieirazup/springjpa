@@ -3,6 +3,7 @@ package br.com.zup.springdata;
 import br.com.zup.springdata.service.CrudCargoService;
 import br.com.zup.springdata.service.CrudFuncionarioService;
 import br.com.zup.springdata.service.CrudUnidadeTrabalhoService;
+import br.com.zup.springdata.service.RelatoriosService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,13 +16,18 @@ public class SpringdataApplication implements CommandLineRunner {
     private final CrudCargoService crudCargoService;
     private final CrudUnidadeTrabalhoService crudUnidadeTrabalhoService;
     private final CrudFuncionarioService crudFuncionarioService;
+    private final RelatoriosService relatoriosService;
 
     private Boolean system = true;
 
-    public SpringdataApplication(CrudCargoService crudCargoService, CrudUnidadeTrabalhoService crudUnidadeTrabalhoService, CrudFuncionarioService crudFuncionarioService) {
+    public SpringdataApplication(CrudCargoService crudCargoService,
+                                 CrudUnidadeTrabalhoService crudUnidadeTrabalhoService,
+                                 CrudFuncionarioService crudFuncionarioService,
+                                 RelatoriosService relatoriosService) {
         this.crudCargoService = crudCargoService;
         this.crudUnidadeTrabalhoService = crudUnidadeTrabalhoService;
         this.crudFuncionarioService = crudFuncionarioService;
+        this.relatoriosService = relatoriosService;
     }
 
     public static void main(String[] args) {
@@ -38,8 +44,9 @@ public class SpringdataApplication implements CommandLineRunner {
             System.out.println("1 - Cargo");
             System.out.println("2 - Unidade de Trabalho");
             System.out.println("3 - Funcionario");
+            System.out.println("4 - Relatorios");
+
             int opcao = scanner.nextInt();
-            System.out.println(opcao);
             switch (opcao) {
                 case 1 -> crudCargoService.inicial(scanner);
                 case 2 -> crudUnidadeTrabalhoService.inicial(scanner);
