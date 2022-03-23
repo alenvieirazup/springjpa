@@ -51,6 +51,7 @@ public class SpringdataApplication implements CommandLineRunner {
                 case 1 -> crudCargoService.inicial(scanner);
                 case 2 -> crudUnidadeTrabalhoService.inicial(scanner);
                 case 3 -> crudFuncionarioService.inicial(scanner);
+                case 4 -> relatoriosService.inicial(scanner);
                 default -> system = false;
             }
         }
