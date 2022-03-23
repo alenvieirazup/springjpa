@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cargos")
-public class Cargo {
+@Table(name = "unidades_trabalho")
+public class UnidadeTrabalho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String descricao;
-    @OneToMany(mappedBy = "cargo")
+    private String nome;
+    private String endereco;
+    @ManyToMany(mappedBy = "unidadesTrabalho", fetch = FetchType.EAGER)
     private List<Funcionario> funcionarios;
 
     public Integer getId() {
@@ -21,12 +22,20 @@ public class Cargo {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNome() {
+        return nome;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public List<Funcionario> getFuncionarios() {
@@ -39,9 +48,10 @@ public class Cargo {
 
     @Override
     public String toString() {
-        return "Cargo{" +
+        return "UnidadeTrabalho{" +
                 "id=" + id +
-                ", descricao='" + descricao + '\'' +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
                 '}';
     }
 }
