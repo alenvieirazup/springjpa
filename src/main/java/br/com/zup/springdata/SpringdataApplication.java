@@ -1,9 +1,6 @@
 package br.com.zup.springdata;
 
-import br.com.zup.springdata.service.CrudCargoService;
-import br.com.zup.springdata.service.CrudFuncionarioService;
-import br.com.zup.springdata.service.CrudUnidadeTrabalhoService;
-import br.com.zup.springdata.service.RelatoriosService;
+import br.com.zup.springdata.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,17 +14,20 @@ public class SpringdataApplication implements CommandLineRunner {
     private final CrudUnidadeTrabalhoService crudUnidadeTrabalhoService;
     private final CrudFuncionarioService crudFuncionarioService;
     private final RelatoriosService relatoriosService;
+    private final RelatorioFuncionarioDinamico relatorioFuncionarioDinamico;
 
     private Boolean system = true;
 
     public SpringdataApplication(CrudCargoService crudCargoService,
                                  CrudUnidadeTrabalhoService crudUnidadeTrabalhoService,
                                  CrudFuncionarioService crudFuncionarioService,
-                                 RelatoriosService relatoriosService) {
+                                 RelatoriosService relatoriosService,
+                                 RelatorioFuncionarioDinamico relatorioFuncionarioDinamico) {
         this.crudCargoService = crudCargoService;
         this.crudUnidadeTrabalhoService = crudUnidadeTrabalhoService;
         this.crudFuncionarioService = crudFuncionarioService;
         this.relatoriosService = relatoriosService;
+        this.relatorioFuncionarioDinamico = relatorioFuncionarioDinamico;
     }
 
     public static void main(String[] args) {
@@ -45,6 +45,7 @@ public class SpringdataApplication implements CommandLineRunner {
             System.out.println("2 - Unidade de Trabalho");
             System.out.println("3 - Funcionario");
             System.out.println("4 - Relatorios");
+            System.out.println("5 - Relatorio dinamico");
 
             int opcao = scanner.nextInt();
             switch (opcao) {
@@ -52,6 +53,7 @@ public class SpringdataApplication implements CommandLineRunner {
                 case 2 -> crudUnidadeTrabalhoService.inicial(scanner);
                 case 3 -> crudFuncionarioService.inicial(scanner);
                 case 4 -> relatoriosService.inicial(scanner);
+                case 5 -> relatorioFuncionarioDinamico.inicial(scanner);
                 default -> system = false;
             }
         }
