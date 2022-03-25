@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    networks:
+      - compose-bridge
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  springjpa:
+    image: alenvieirazup/springjpa
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mariadb
+    networks:
+      - compose-bridge
+    environment:
+      MYSQL_URL: "jdbc:mariadb://mariadb:3306/${MYSQL_DATABASE}"
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+networks:
+  compose-bridge:
+    driver: bridge
